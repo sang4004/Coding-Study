@@ -24,7 +24,7 @@ function solution(ingredient) {
     //ingredient 하나씩 푸시
       material.push(i)
       // 배열에서 뒤에서부터 4개씩 끊어서 1231수가 완성 되는지 획인
-      if(material.slice(-4).join("") == '1231'){
+      if(material.slice(-4).join("") === '1231'){
           // 있다면 해당 부분을 삭제
           material.splice(-4)
           //answer +1 진행
@@ -32,4 +32,20 @@ function solution(ingredient) {
       }
   }
   return answer;
+}
+
+//다른 유저가 푼 간결했던 코드
+function solution(ingredient) {
+  let count = 0;
+
+  for (let i = 0; i < ingredient.length; i++) {
+      if (ingredient.slice(i, i + 4).join('') === '1231') {
+          count++;
+          ingredient.splice(i, 4);
+          //i 값이 자동으로 1이 더해지는 것을 감안해 넣은 코드
+          i -= 3;
+      }
+  }
+
+  return count;
 }
