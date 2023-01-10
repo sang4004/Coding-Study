@@ -35,19 +35,24 @@
 
 
 function solution(relation) {
-    
+  // row = 컬럼의 길이
   const row = relation[0].length;
-  
+  // check의 각 자리 수는 컬럼 1: 학번, 10: 이름 100: 학년, 1000: 전공 
   const check = 1 << row;
+  // 새로운 Set 선언을 한 이유는 값을 통해 요소를 삭제하기 위하여 선언
   const answer = new Set();
   
+  // i는 1부터 1111까지 컬럼 조합을 탐색
   for(i = 0; i < check; i++){
+      // Filter를 통해 i에 포함되는 컬럼 내용만을 걸러낸 후 string으로 합침  
       let temp = relation.map(raw=>raw.filter((_,_raw) => i & (1<<_raw)).join(""));
+      // set을 통해 Temp에 중복되는 내영을 지움.
       const set = new Set(temp);
       
+      // 만약 temp와 set의 길이가 같다면 중복되는 내용이 없다는 뜻으로 answer 담기
       if(temp.length === set.size) answer.add(i);
   }
-  
+  // answer를 순회하면서 최소성을 만족하지 못한 수들 삭제.
   for(let x of answer){
       for(let y of answer){
           if(x>=y) continue;
